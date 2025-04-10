@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Lost Vikings</title>
+</head>
+<body>
+<script>
+const juegoLostVikings = {
+  titulo: "The Lost Vikings",
+  genero: "Plataformas / Puzzle",
+  personajes: [
+    {
+      nombre: "Erik",
+      habilidad: "Corre y salta",
+      estado: "activo",
+      items: ["llave roja", "llave amarilla"]
+    },
+    {
+      nombre: "Baleog",
+      habilidad: "Espada y arco",
+      estado: "esperando",
+      items: []
+    },
+    {
+      nombre: "Olaf",
+      habilidad: "Escudo defensivo",
+      estado: "esperando",
+      items: ["escudo"]
+    }
+  ],
+  enemigos: [
+    {
+      tipo: "Caracol verde",
+      ataque: "proyectil ácido"
+    }
+  ],
+  entorno: {
+    obstaculos: ["cascada", "cerradura", "plataformas", "escalera"],
+    nivel: "cueva",
+    agua: true
+  },
+  inventarioGlobal: new Map([
+    ["llave roja", true],
+    ["llave amarilla", true],
+    ["manzana", false]
+  ])
+};
+</script>
+</body>
+</html>

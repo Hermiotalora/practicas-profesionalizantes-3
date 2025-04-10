@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Abstraccion de Datos</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+
+let dataInputA = true;
+let dataInputB = true;
+let dataInputC = false;
+
+function and_gate( a, b )
+{
+	return a && b;
+}
+
+function and3_gate( a, b, c )
+{
+	return a && b && c;
+}
+
+function or_gate(a, b)
+{
+	return a || b;
+}
+
+function not_gate(a)
+{
+	return !a;
+}
+
+let componentA =
+{
+	inputs: new Map(),
+	action: and3_gate,
+	output: null
+}
+
+let componentB =
+{
+	inputs: new Map(),
+	action: not_gate,
+	output: null
+}
+
+let componentC =
+{
+	inputs: new Map(),
+	action: not_gate,
+	output: null
+}
+
+let componentD =
+{
+	inputs: new Map(),
+	action: or_gate,
+	output: null
+}
+
+let componentE =
+{
+	inputs: new Map(),
+	action: and_gate,
+	output: null
+}
+
+let componentF =
+{
+	inputs: new Map(),
+	action: or_gate,
+	output: null
+}
+
+componentA.inputs.set('0', dataInputA);
+componentA.inputs.set('1', dataInputB);
+componentA.inputs.set('2', dataInputC);
+componentB.inputs.set('0', dataInputB );
+componentC.inputs.set('0', dataInputC );
+componentD.inputs.set('0', componentB.output );
+componentD.inputs.set('1', componentC.output );
+componentE.inputs.set('0', dataInputA );
+componentE.inputs.set('1', componentD.output );
+componentF.inputs.set('0', componentA.output );
+componentF.inputs.set('1', componentE.output );
+
+
+let components = new Map();
+
+components.set('A', componentA );
+components.set('B', componentB );
+components.set('C', componentC );
+components.set('D', componentD );
+components.set('E', componentE );
+components.set('F', componentF );
+
+function onCircuit()
+{
+	let a = components.get('A');
+
+	alert( a.action( a.inputs.get('0'),  a.inputs.get('1'),  a.inputs.get('2') ) );
+}
+
+onCircuit();
+
+</script>
+
+</html>
