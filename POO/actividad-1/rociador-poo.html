@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Juego: Rociador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #00796b;
+            color: white;
+            padding: 20px 0;
+            font-size: 24px;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #388e3c;
+        }
+        #estado {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        input {
+            margin: 5px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        img {
+            width: 200px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>Juego : Rociador </header>
+
+    <div class="container">
+        <img src="rociador.jpg" alt="Rociador"><br>
+
+        <button onclick="rociador.destapar()">Destapar</button>
+        <button onclick="rociador.tapar()">Tapar</button><br>
+        <button onclick="rociador.rociar()">Rociar</button>
+        <button onclick="rociador.vaciar()">Vaciar</button><br>
+        
+        <input type="text" id="sustancia" placeholder="Sustancia (ej: agua)">
+        <input type="number" id="porcentaje" placeholder="% de carga" min="0" max="100">
+        <button onclick="cargarRociador()">Cargar</button>
+
+        <div id="estado"></div>
+    </div>
+
+    <script>
+        class Rociador {
+            constructor(material = "plastico") {
+                this.capacidadEnML = 750.0;
+                this.porcentajeCarga = 0.0;
+                this.sustancia = "";
+                this.material = material;
+                this.tapaPuesta = true;
+                this.actualizarEstado();
+            }
+
+            rociar() {
+                if (this.tapaPuesta) {
+                    alert("Destapa el rociador antes de usarlo");
+                    return;
+                }
+                if (this.porcentajeCarga <= 0) {
+                    alert("El rociador esta vacio");
+                } else {
+                    this.porcentajeCarga -= 5;
+                    if (this.porcentajeCarga < 0) this.porcentajeCarga = 0;
+                    alert(`Rociaste un poco de ${this.sustancia}. Carga restante: ${this.porcentajeCarga.toFixed(1)}%`);
+                }
+                this.actualizarEstado();
+            }
+
+            cargar(sustancia, porcentaje) {
+                if (porcentaje < 0 || porcentaje > 100) {
+                    alert("Porcentaje invalido. Debe estar entre 0 y 100.");
+                    return;
+                }
+                this.sustancia = sustancia;
+                this.porcentajeCarga = porcentaje;
+                alert(`Cargado con ${porcentaje}% de ${sustancia}.`);
+                this.actualizarEstado();
+            }
+
+            vaciar() {
+                this.porcentajeCarga = 0;
+                this.sustancia = "";
+                alert("El rociador fue vaciado.");
+                this.actualizarEstado();
+            }
+
+            tapar() {
+                this.tapaPuesta = true;
+                alert("La tapa fue puesta.");
+                this.actualizarEstado();
+            }
+
+            destapar() {
+                this.tapaPuesta = false;
+                alert("La tapa fue retirada. Listo para rociar");
+                this.actualizarEstado();
+            }
+
+            actualizarEstado() {
+                document.getElementById("estado").innerText =
+                    `Estado: ${this.porcentajeCarga}% de carga con "${this.sustancia}" - Tapa: ${this.tapaPuesta ? "Puesta" : "Destapado"}`;
+            }
+        }
+
+        let rociador = new Rociador();
+
+        function cargarRociador() {
+            let sustancia = document.getElementById("sustancia").value;
+            let porcentaje = parseFloat(document.getElementById("porcentaje").value);
+            rociador.cargar(sustancia, porcentaje);
+        }
+    </script>
+
+</body>
+</html>
