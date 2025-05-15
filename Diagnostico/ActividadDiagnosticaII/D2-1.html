@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ecualizador</title>
+</head>
+<body>
+</body>
+
+<script>
+// Preset seleccionado
+let preset = "Classical";
+
+let ajustes = [
+  { frecuencia: "Preamp", valor: 12.0 },
+  { frecuencia: "31.25 Hz", valor: 0.0 },
+  { frecuencia: "62.5 Hz", valor: 0.0 },
+  { frecuencia: "125 Hz", valor: 0.0 },
+  { frecuencia: "250 Hz", valor: 0.0 },
+  { frecuencia: "500 Hz", valor: 0.0 },
+  { frecuencia: "1 KHz", valor: 0.0 },
+  { frecuencia: "2 KHz", valor: -7.2 },
+  { frecuencia: "4 KHz", valor: -7.2 },
+  { frecuencia: "8 KHz", valor: -7.2 },
+  { frecuencia: "16 KHz", valor: -9.6 }
+];
+
+let archivo = "C:\\libvlc-go-examples\\v3\\gtk3_equalizer\\nocturne.mp3";
+
+let ecualizador = {
+  preset: preset,
+  ajustes: ajustes,
+  archivo: archivo
+};
+
+console.log(ecualizador);
+</script>
+</html>
