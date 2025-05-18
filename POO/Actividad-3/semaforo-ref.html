@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semaforo y Movimiento</title>
+  <style>
+    body {
+      background-color: #e0f0ff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    canvas {
+      border: 2px solid #555;
+      background-color: #fff;
+      display: block;
+      margin: 20px auto;
+    }
+
+    .semaforo {
+      display: inline-block;
+      margin: 20px;
+    }
+
+    .luz {
+      width: 60px;
+      height: 60px;
+      margin: 5px auto;
+      border-radius: 50%;
+      background-color: white;
+      border: 2px solid #aaa;
+    }
+
+    .encendida {
+      box-shadow: 0 0 10px 4px;
+    }
+
+    #red.encendida {
+      background-color: red;
+    }
+
+    #yellow.encendida {
+      background-color: yellow;
+    }
+
+    #green.encendida {
+      background-color: green;
+    }
+
+    .botones button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #on { background-color: #4caf50; color: white; }
+    #off { background-color: #f44336; color: white; }
+  </style>
+</head>
+<body>
+  <h1>Simulador Semaforo + Movimiento</h1>
+
+  <canvas id="canvas" width="600" height="150"></canvas>
+
+  <div class="semaforo">
+    <div id="red" class="luz"></div>
+    <div id="yellow" class="luz"></div>
+    <div id="green" class="luz"></div>
+  </div>
+
+  <div class="botones">
+    <button id="on">Encender</button>
+    <button id="off">Apagar</button>
+  </div>
+
+  <script>
+    class SemaphoreModel extends EventTarget {
+      constructor() {
+        super();
+        this.timer = 0;
+        this.redTime = 4;
+        this.transitionTime = 1;
+        this.greenTime = 4;
+
+        this.redLightState = null;
+        this.yellowLightState = null;
+        this.greenLightState = null;
+        this.isRunning = false;
+
+        this.setShutdownState();
+      }
+
+      getModelState() {
+        return {
+          red: this.redLightState,
+          yellow: this.yellowLightState,
+          green: this.greenLightState
+        };
+      }
+
+      setShutdownState() {
+        this.redLightState = false;
+        this.yellowLightState = false;
+        this.greenLightState = false;
+        this.dispatchEvent(new CustomEvent('changed'));
+      }
+
+      setRedLightState() {
+        this.redLightState = true;
+        this.yellowLightState = false;
+        this.greenLightState = false;
+        this.dispatchEvent(new CustomEvent('changed'));
+      }
+
+      setRedToGreenTransitionState() {
+        this.redLightState = true;
+        this.yellowLightState = true;
+        this.greenLightState = false;
+        this.dispatchEvent(new CustomEvent('changed'));
+      }
+
+      setGreenLightState() {
+        this.redLightState = false;
+        this.yellowLightState = false;
+        this.greenLightState = true;
+        this.dispatchEvent(new CustomEvent('changed'));
+      }
+
+      setGreenToRedTransitionState() {
+        this.redLightState = false;
+        this.yellowLightState = true;
+        this.greenLightState = true;
+        this.dispatchEvent(new CustomEvent('changed'));
+      }
+
+      onTickEventHandler() {
+        this.timer++;
+        if (this.timer < this.redTime) {
+          this.setRedLightState();
+        } else if (this.timer < this.redTime + this.transitionTime) {
+          this.setRedToGreenTransitionState();
+        } else if (this.timer < this.redTime + this.transitionTime + this.greenTime) {
+          this.setGreenLightState();
+        } else if (this.timer <= this.redTime + 2 * this.transitionTime + this.greenTime) {
+          this.setGreenToRedTransitionState();
+        } else {
+          this.timer = 0;
+        }
+      }
+
+      run() {
+        if (!this.isRunning) {
+          this.worker = new Worker(URL.createObjectURL(new Blob([`
+            function tick() {
+              postMessage("tick");
+              setTimeout(tick, 1000);
+            }
+            tick();
+          `], { type: "application/javascript" })));
+          this.worker.addEventListener('message', () => this.onTickEventHandler());
+          this.isRunning = true;
+        }
+      }
+
+      shutdown() {
+        if (this.isRunning) {
+          this.worker.terminate();
+          this.setShutdownState();
+          this.isRunning = false;
+        }
+      }
+    }
+
+    class SemaphoreView {
+      constructor(model) {
+        this._model = model;
+        this._model.addEventListener('changed', () => this.updateView());
+        this.updateView();
+      }
+
+      updateView() {
+        let state = this._model.getModelState();
+        document.getElementById("red").classList.toggle("encendida", state.red);
+        document.getElementById("yellow").classList.toggle("encendida", state.yellow);
+        document.getElementById("green").classList.toggle("encendida", state.green);
+      }
+    }
+
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    let x = 20;
+    const y = canvas.height / 2;
+    const radius = 15;
+    const speed = 2;
+
+    const semaforo = new SemaphoreModel();
+    new SemaphoreView(semaforo);
+
+    function drawCircle() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = "black";
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    setInterval(() => {
+      if (semaforo.greenLightState) {
+        x += speed;
+        if (x > canvas.width + radius) {
+          x = -radius;
+        }
+      }
+      drawCircle();
+    }, 30);
+
+    document.getElementById("on").onclick = () => semaforo.run();
+    document.getElementById("off").onclick = () => semaforo.shutdown();
+  </script>
+</body>
+</html>
