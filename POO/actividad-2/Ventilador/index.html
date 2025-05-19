@@ -1,0 +1,32 @@
+<!-- 3. Ventilador
+Clase: Ventilador  
+Atributos:
+- velocidadActual: string ("apagado", "baja", "media", "alta")
+- estaOscilando: boolean
+Métodos:
+- encender()
+- apagar()
+- cambiarVelocidad(nuevaVelocidad)
+- alternarOscilacion()
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ventilador</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Ventilador</h1>
+  <img src="ventilador.jpg" alt="Ventilador" id="imgVentilador">
+  <div class="botones">
+    <button onclick="encender()">Encender</button>
+    <button onclick="apagar()">Apagar</button>
+    <button onclick="cambiarVelocidad()">Cambiar Velocidad</button>
+    <button onclick="alternarOscilacion()">Oscilar</button>
+  </div>
+  <p id="estado"></p>
+  <script src="script.js"></script>
+</body>
+</html>
