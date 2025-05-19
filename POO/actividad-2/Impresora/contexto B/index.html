@@ -1,0 +1,33 @@
+<!-- Contexto B: Articulo en venta
+Clase: ProductoImpresora  
+Atributos:
+- nombre: string
+- marca: string
+- modelo: string
+- precio: number
+- stock: number
+- descripcion: string
+Metodos:
+- mostrarDetalle()
+- actualizarStock(cantidad) -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Producto Impresora</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Impresora Laser Monocromatica</h1>
+  <img src="impresora.jpg" alt="Impresora" />
+  <div>
+    <button onclick="verDetalles()">Ver detalles</button>
+    <button onclick="actualizarStock(-1)">Vender 1 unidad</button>
+    <button onclick="actualizarStock(5)">Agregar 5 unidades</button>
+  </div>
+  <div id="producto"></div>
+  <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,36 @@
+<!-- Impresora laser monocromatica
+
+    Contexto A: Objeto conceptual realista simplificado
+    Clase: ImpresoraLaserMonocromatica  
+    Atributos:
+    - estado: string ("encendida", "apagada")
+    - nivelToner: number (0-100%)
+    - cantidadHojas: number
+    Metodos:
+    - encender()
+    - apagar()
+    - imprimir(numeroHojas)
+    - recargarToner()
+    - agregarHojas(numero) -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Impresora A</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Impresora Laser Monocromatica</h1>
+   <img src="impresora.jpg" alt="Impresora" />
+  <div class="botones">
+    <button onclick="encender()">Encender</button>
+    <button onclick="apagar()">Apagar</button>
+    <button onclick="imprimir()">Imprimir</button>
+    <button onclick="recargarToner()">Recargar toner</button>
+    <button onclick="agregarHojas()">Agregar hojas</button>
+  </div>
+  <p id="estado"></p>
+  <script src="script.js"></script>
+</body>
+</html>
