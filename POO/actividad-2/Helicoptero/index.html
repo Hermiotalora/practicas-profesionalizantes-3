@@ -1,0 +1,43 @@
+<!--Helicoptero (juego Desert Strike)
+    Clase: Helicoptero  
+    Atributos:
+    -modelo: string
+    -municion: number
+    -combustible: number
+    -vida: number
+    -posX: number
+    -posY: number
+
+    Metodos:
+    -mover(direccion): cambia posicion
+    -disparar(): consume municion
+    -recargar(): restaura municion
+    -recargarCombustible(): restaura combustible
+    -recibirDanio(): resta vida
+    -mostrarEstado(): muestra estado actual
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Helicoptero Desert Strike</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Helicoptero Desert Strike</h1>
+  <canvas id="canvas" width="400" height="300"></canvas>
+  <div class="botones">
+    <button onclick="mover('arriba')">Arriba</button>
+    <button onclick="mover('abajo')">Abajo</button>
+    <button onclick="mover('izquierda')">Izquierda</button>
+    <button onclick="mover('derecha')">Derecha</button>
+    <button onclick="disparar()">Disparar</button>
+    <button onclick="recargar()">Recargar</button>
+    <button onclick="recargarCombustible()">Combustible</button>
+    <button onclick="recibirDanio()">Danio</button>
+  </div>
+  <p id="estado"></p>
+  <script src="script.js"></script>
+</body>
+</html>

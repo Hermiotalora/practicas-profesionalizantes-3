@@ -1,0 +1,27 @@
+body {
+  font-family: sans-serif;
+  background-color:rgb(7, 4, 4);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+canvas {
+  background-color: black;
+  border: 2px solid white;
+  display: block;
+  margin: 0 auto 20px;
+}
+button {
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 14px;
+  background-color:rgb(18, 53, 20);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#estado {
+  margin-top: 20px;
+  font-size: 14px;
+}
