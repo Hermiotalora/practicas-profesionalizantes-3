@@ -1,0 +1,24 @@
+body {
+  font-family: sans-serif;
+  background-color: #fff8f0;
+  padding: 20px;
+  text-align: center;
+}
+img {
+  width: 250px;
+  margin: 20px auto;
+}
+button {
+  margin: 10px;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+  background-color: #e91e63;
+  color: white;
+  cursor: pointer;
+}
+#estado {
+  margin-top: 20px;
+  font-size: 16px;
+}

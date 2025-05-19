@@ -1,0 +1,34 @@
+<!--Auto
+    Clase: Auto  
+    Atributos:
+    - marca: string
+    - modelo: string
+    - año: number
+    - velocidadActual: number (km/h)
+    Metodos:
+    - arrancar()
+    - acelerar(cantidad)
+    - frenar(cantidad)
+    - detener()
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Auto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Auto</h1>
+  <img src="auto.avif" alt="Auto" id="imgAuto">
+  <div class="botones">
+    <button onclick="arrancar()">Arrancar</button>
+    <button onclick="acelerar()">Acelerar</button>
+    <button onclick="frenar()">Frenar</button>
+    <button onclick="detener()">Detener</button>
+  </div>
+  <p id="estado"></p>
+  <script src="script.js"></script>
+</body>
+</html>
