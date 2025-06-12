@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulador de Figuras</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <br><br><h2>Simulador de Figuras</h2><br><br>
+  <div class="contenedor">
+    <div class="controles">
+      <br><br><button id="btnRect">Crear rectangulo</button><br><br>
+      <br><br><button id="btnCirc">Crear circulo</button><br><br>
+      <br><br><button id="btnTri">Crear triangulo</button><br><br>
+      <br><br><button id="btnDel">Eliminar figura seleccionada</button><br><br>
+      <br><br>
+      <br><br><label>Color: </label><br><br>
+      <input type="color" id="colorPicker">
+    </div>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <div class="tabla">
+      <h4>Figuras creadas</h4>
+      <table id="tablaFiguras" border="1">
+        <tr><th>Tipo</th><th>ID</th></tr>
+      </table>
+    </div>
+  </div>
+  <p id="figuraActiva">Figura activa seleccionada: Ninguna</p>
+
+  <script src="Figura.js"></script>
+  <script src="Rectangulo.js"></script>
+  <script src="Circulo.js"></script>
+  <script src="Triangulo.js"></script>
+  <script src="Controlador.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
